@@ -1,9 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import userActions from '../redux/actions.js';
 
-export const Signup = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+const Signup = props => {
+  // initializing dispatch
+  const dispatch = useDispatch();
+
+  // Setting up local state using the useState hook
+    const [signupForm, setSignupForm] = useState({
+    name: '',
+    username: '',
+    password: ''
+  });
+
+  // Controlled form functions
+  const handleChange = e =>
+    setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const { history } = props;
+    dispatch(userActions.newUserToDB(signupForm));
+    history.push('/');
+  };
+
+  // Destructuring keys from our local state to use in the form
+  const { name, username, password } = signupForm;
+
+  // Component code
+  return (
+    <form onSubmit={handleSubmit}>
+    <h1>Signup Page</h1>
+        <input
+        type="text"
+        name="name"
+        value={name}
+        onChange={handleChange}
+        placeholder="Name"
+      />
+      <input
+        type="text"
+        name="username"
+        value={username}
+        onChange={handleChange}
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        name="password"
+        value={password}
+        onChange={handleChange}
+        placeholder="Password"
+      />
+      <input type="submit" />
+    </form>
+  );
+};
+
+export default Signup;

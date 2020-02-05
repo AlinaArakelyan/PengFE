@@ -1,6 +1,6 @@
 import React from 'react';
-import {Switch, Route} from ‘react-router-dom’
-import Pages from './Pages';
+import { Switch, Route } from 'react-router-dom';
+import Pages from './Pages/Index';
 
 const Routes = () => {
   return (
