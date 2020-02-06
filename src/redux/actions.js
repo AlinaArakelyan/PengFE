@@ -3,6 +3,7 @@ const USERS_URL = BASE_URL + '/users';
 const PERSIST_URL = BASE_URL + '/persist';
 const LOGIN_URL = BASE_URL + '/login';
 const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
+const POSTS_URL = BASE_URL + "/posts";
 
 // Redux Actions
 
