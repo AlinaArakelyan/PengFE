@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import userActions from '../redux/actions.js';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,13 +12,33 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', 
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 
 const Signup = props => {
 
   const dispatch = useDispatch();
 
-  // Setting up local state using the useState hook
   const [signupForm, setSignupForm] = useState({
     name: '',
     username: '',
@@ -33,41 +53,18 @@ const Signup = props => {
   
   const fileInput = React.createRef();
 
+  let history = useHistory();
   const handleSubmit = e => {
     e.preventDefault();
-    alert(
-      `Selected file - ${
-        this.fileInput.current.files[0].name
-      }`
-    );
-    const { history } = props;
+    // const { history } = props;
     dispatch(userActions.newUserToDB(signupForm));
     history.push('/');
+    console.log({history})
   };
 
 
   // Destructuring keys from our local state to use in the form
   const { name, username, password } = signupForm;
-
-  const useStyles = makeStyles(theme => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-      width: '100%', 
-      marginTop: theme.spacing(3),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-  }));
 
 
     const classes = useStyles();
